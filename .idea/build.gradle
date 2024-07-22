@@ -1,9 +1,0 @@
-apply plugin: 'java'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation files('libs/mysql-connector-j-9.0.0.jar')
-}

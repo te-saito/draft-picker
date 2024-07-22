@@ -3,19 +3,39 @@
  */
 package org.example.app;
 
-import org.example.list.LinkedList;
-
-import static org.example.utilities.StringUtils.join;
-import static org.example.utilities.StringUtils.split;
-import static org.example.app.MessageUtils.getMessage;
-
-import org.apache.commons.text.WordUtils;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class App {
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/draft_picker";
+    private static final String USER = "draft_picker";
+    private static final String PASS = "yutapo0302";
+
     public static void main(String[] args) {
-        LinkedList tokens;
-        tokens = split(getMessage());
-        String result = join(tokens);
-        System.out.println(WordUtils.capitalize(result));
+        Connection conn = null;
+
+        try {
+            // JDBCドライバをロード
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // データベースに接続
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection established successfully!");
+
+            // TODO: データベース操作をここに追加
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
